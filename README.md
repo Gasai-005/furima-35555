@@ -1,24 +1,52 @@
-# README
+## users
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+|Column     |Type  |Options                  |
+|-----------|------|-------------------------|
+|last_name  |string|null: false              |
+|first_name |string|null: false              |
+|password   |string|null: false, unique: true|
+|nickname   |string|null: false, unique: true|
+|email      |string|null: false, unique: true|
+|birthday   |date  |null: false              |
 
-Things you may want to cover:
 
-* Ruby version
+### Association
+has_many :items
+has_many :buy_logs
 
-* System dependencies
+## items
 
-* Configuration
+|Column      |Type      |Options    |
+|------------|----------|-----------|
+|item_name   |string    |null: false|
+|description |text      |null: false|
+|price       |int       |null: false|
+|category    |string    |null: false|
+|status      |string    |null: false|
 
-* Database creation
+### Association
+belongs_to :user
+has_one :buy_log
 
-* Database initialization
+## buy_logs
 
-* How to run the test suite
+|Column  |Type       |Options                        |
+|--------|-----------|-------------------------------|
+|item_id |references |null: false, foreign_key: true |
+|user_id |references |null: false, foreign_key: true |
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
+belongs_to :user
+belongs_to :item
+has_one :delivery
 
-* Deployment instructions
+## deliveries
 
-* ...
+|Column        |Type  |Options    |
+|--------------|------|-----------|
+|postal_code   |string|null: false|
+|delivery_cost |int   |null: false|
+|delivery_date |date  |null: false|
+
+### Association
+belongs_to :buy_log
