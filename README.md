@@ -18,19 +18,18 @@ has_many :buy_logs
 
 ## items
 
-|Column       |Type      |Options    |
-|-------------|----------|-----------|
-|name         |string    |null: false|
-|description  |text      |null: false|
-|price        |int       |null: false|
-|bearer       |string    |null: false|
-|delivery_cost|int       |null: false|
-|delivery_days|date      |null: false|
-|prefecture   |string    |null: false|
-|user         |references|null: false|
-|category_id  |int       |null: false|
-|status_id    |int       |null: false|
-|image_id     |int       |null: false|
+|Column          |Type      |Options                        |
+|----------------|----------|-------------------------------|
+|name            |string    |null: false                    |
+|description     |text      |null: false                    |
+|price           |int       |null: false                    |
+|bearer          |string    |null: false                    |
+|delivery_cost_id|int       |null: false                    |
+|delivery_days_id|int       |null: false                    |
+|prefecture_id   |int       |null: false                    |
+|user            |references|null: false, foreign_key: true |
+|category_id     |int       |null: false                    |
+|status_id       |int       |null: false                    |
 
 ### Association
 belongs_to :user
@@ -50,15 +49,15 @@ has_one :delivery
 
 ## deliveries
 
-|Column        |Type      |Options    |
-|--------------|----------|-----------|
-|postal_code   |string    |null: false|
-|prefecture    |string    |null: false|
-|municipality  |string    |null: false|
-|address       |string    |null: false|
-|building_name |string    |           |
-|phone_number  |string    |null: false|
-|buy_log       |references|null: false|
+|Column        |Type      |Options                        |
+|--------------|----------|-------------------------------|
+|postal_code   |string    |null: false                    |
+|prefecture_id |int       |null: false                    |
+|municipality  |string    |null: false                    |
+|address       |string    |null: false                    |
+|building_name |string    |                               |
+|phone_number  |string    |null: false                    |
+|buy_log       |references|null: false, foreign_key: true |
 
 ### Association
 belongs_to :buy_log
