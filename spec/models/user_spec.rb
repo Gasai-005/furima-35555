@@ -6,6 +6,11 @@ RSpec.describe User, type: :model do
   end
 
   describe "ユーザー新規登録" do
+    context '保存できる場合' do
+      it "全ての項目を正しく入力できているとサインアップできる" do
+        expect(@user).to be_valid
+      end
+    end
     context '保存できない場合' do
     it "nicknameが空だと登録できない" do
       @user.nickname = ''
@@ -27,7 +32,7 @@ RSpec.describe User, type: :model do
       @user2 = FactoryBot.build(:user)
       @user2.email = @user.email
       @user2.valid?
-
+      expect(@user2.errors.full_messages).to include("Email has already been taken")
     end
     it "passwordが空だと登録できない" do
       @user.password = ''
@@ -89,7 +94,7 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Last name kana can't be blank", "Last name kana に全角カタカナを使用してください")
     end
-    it "last_name_kanaが全角でないと登録できない" do
+    it "last_name_kanaが全角カタカナでないと登録できない" do
       @user.last_name_kana = 'yamada'
       @user.valid?
       expect(@user.errors.full_messages).to include("Last name kana に全角カタカナを使用してください")
@@ -99,7 +104,7 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kana can't be blank", "First name kana に全角カタカナを使用してください")
     end
-    it "first_name_kanaが全角でないと登録できない" do
+    it "first_name_kanaが全角カタカナでないと登録できない" do
       @user.first_name_kana = 'tarou'
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kana に全角カタカナを使用してください")
