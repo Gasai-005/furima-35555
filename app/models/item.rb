@@ -11,6 +11,7 @@ class Item < ApplicationRecord
     validates :prefecture_id
     validates :category_id
     validates :status_id
+    validates :image
   end
 
   with_options numericality: { other_than: 1 } do
@@ -21,5 +22,6 @@ class Item < ApplicationRecord
     validates :status_id
   end
 
-  validates_inclusion_of :price, in:300..9999999, message: 'を￥300~9999999の範囲で設定してください'
+  validates_inclusion_of :price, in:300..9999999, message: 'を半角数字で￥300~9999999の範囲に設定してください'
+  validates :price, format: { with: /\A[0-9]+\z/}
 end
