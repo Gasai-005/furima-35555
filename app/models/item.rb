@@ -1,6 +1,8 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :delivery_cost
   
   with_options presence: true do
     validates :name
