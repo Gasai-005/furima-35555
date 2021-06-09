@@ -56,6 +56,21 @@ RSpec.describe BuyDelivery, type: :model do
         @buy.valid?
         expect(@buy.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
       end
+      it "user_idが空だと購入できない" do
+        @buy.user_id = ''
+        @buy.valid?
+        expect(@buy.errors.full_messages).to include("User can't be blank")
+      end
+      it "item_idが空だと購入できない" do
+        @buy.item_id = nil
+        @buy.valid?
+        expect(@buy.errors.full_messages).to include("Item can't be blank")
+      end
+      it "tokenが空だと購入できない" do
+        @buy.token = ''
+        @buy.valid?
+        expect(@buy.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end

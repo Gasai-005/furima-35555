@@ -2,6 +2,7 @@ class BuyLogsController < ApplicationController
   before_action :authenticate_user!
   before_action :inst_item
   before_action :sold_out
+  before_action :sell_user
  
   def index
     @buy_delivery = BuyDelivery.new
@@ -38,6 +39,12 @@ class BuyLogsController < ApplicationController
 
   def sold_out
     unless @item.buy_log.blank?
+      redirect_to root_path
+    end
+  end
+
+  def sell_user
+    if current_user.id == @item.user_id
       redirect_to root_path
     end
   end
