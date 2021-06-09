@@ -2,9 +2,11 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: :index
   before_action :inst_item, only: [:show, :edit, :update, :destroy]
   before_action :same_user, only: [:edit, :update, :destroy]
+  before_action :sold_out, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.order("created_at DESC")
+    @buy_log = BuyLog.all
   end
 
   def new
@@ -52,6 +54,12 @@ class ItemsController < ApplicationController
   def same_user
     unless current_user.id == @item.user_id
       redirect_to action: :index
+    end
+  end
+
+  def sold_out
+    unless @item.buy_log.blank?
+      redirect_to root_path
     end
   end
 end

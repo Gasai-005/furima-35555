@@ -134,11 +134,11 @@
         <div class='item-img-content'>
           <%= image_tag i.image, class: "item-img" %>
 
-          <%# 商品が売れていればsold outを表示しましょう %>
+          <% unless i.buy_log.blank? %>
           <div class='sold-out'>
             <span>Sold Out!!</span>
           </div>
-          <%# //商品が売れていればsold outを表示しましょう %>
+          <% end %>
 
         </div>
         <div class='item-info'>
